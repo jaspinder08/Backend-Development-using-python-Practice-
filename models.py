@@ -9,10 +9,10 @@ class Post(Base):
     __tablename__ = "posts"
 
     id = Column(Integer, primary_key=True, nullable=False)
-    name = Column(String, nullable=False)
-    age = Column(Integer, nullable=False)
-    salary = Column(Float, nullable=False)
-    salary_received = Column(Boolean, server_default="True", nullable=False)
+    caption = Column(String, nullable=False)
+    tagged_people = Column(Integer, nullable=False)
+    music_name = Column(String, nullable=False)
+    is_influencer = Column(Boolean, server_default="True", nullable=False)
     created_at = Column(
         TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
     )

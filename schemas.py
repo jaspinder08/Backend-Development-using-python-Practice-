@@ -5,10 +5,10 @@ from pydantic.types import conint
 
 
 class SamplePost(BaseModel):
-    name: str
-    age: int
-    salary: float
-    salary_received: bool = True
+    caption: str
+    tagged_people: int
+    music_name: str
+    is_influencer: bool = True
 
 
 class PostCreate(SamplePost):
@@ -24,7 +24,7 @@ class UserOut(BaseModel):
         from_attributes = True
 
 
-class Response(SamplePost):
+class Post(SamplePost):
     id: int
     created_at: datetime
     owner_id: int
@@ -32,6 +32,14 @@ class Response(SamplePost):
 
     class Config:
         from_attributes = True
+
+
+# class PostOut(BaseModel):
+#     Post: Post
+#     votes: int
+
+#     class Config:
+#         from_attributes = True
 
 
 class User(BaseModel):
@@ -55,4 +63,4 @@ class TokenData(BaseModel):
 
 class Votes(BaseModel):
     post_id: int
-    dir: conint
+    dir: conint(ge=0, le=1)  # Constraint for direction: 0 or 1

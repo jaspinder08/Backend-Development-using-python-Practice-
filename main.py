@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 import models
 from database import engine
-from routers import post, user, auth
+from routers import post, user, auth, votes
 from config import settings
 
 
@@ -22,7 +22,7 @@ app = FastAPI()
 app.include_router(auth.router)
 app.include_router(user.router)
 app.include_router(post.router)
-
+app.include_router(votes.router)
 
 if __name__ == "__main__":
     uvicorn.run(
