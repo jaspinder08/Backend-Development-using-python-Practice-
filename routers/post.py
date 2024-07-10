@@ -20,7 +20,7 @@ def get_posts(
 ):
     all_database = (
         db.query(models.Post)
-        .filter(models.Post.name.contains(search))
+        .filter(models.Post.caption.contains(search))
         .limit(limit)
         .offset(skip)
         .all()
