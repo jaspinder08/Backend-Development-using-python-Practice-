@@ -10,7 +10,7 @@ router = APIRouter(prefix="/posts", tags=["posts"])
 
 
 # get all post----------------------------------------------------------------------------------------------------
-@router.get("/", response_model=List[schemas.Response])
+@router.get("/", response_model=List[schemas.Post])
 def get_posts(
     db: Session = Depends(get_db),
     current_user: int = Depends(oauth2.get_current_user),
@@ -20,7 +20,7 @@ def get_posts(
 ):
     all_database = (
         db.query(models.Post)
-        .filter(models.Post.name.contains(search))
+        .filter(models.Post.caption.contains(search))
         .limit(limit)
         .offset(skip)
         .all()
@@ -49,7 +49,7 @@ def create_posts(
 @router.get(
     "/{id}",
     status_code=status.HTTP_201_CREATED,
-    response_model=schemas.Response,
+    response_model=schemas.Post,
 )
 def get_posts_with_id(id: int, db: Session = Depends(get_db)):
     single_post = db.query(models.Post).filter(models.Post.id == id).first()
@@ -92,7 +92,7 @@ def delete_post(
 @router.put(
     "/{id}",
     status_code=status.HTTP_201_CREATED,
-    response_model=schemas.Response,
+    response_model=schemas.Post,
 )
 def update_post(
     id: int,
